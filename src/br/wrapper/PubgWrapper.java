@@ -79,9 +79,10 @@ public class PubgWrapper {
 	 */
 	private URL getFormatedURL(String what, String extras) {
 		//TODO look for a better way to handle with extras
+		String filter = "?filter[playerNames]=filter%5BplayerNames%5D%3D";
 		if(what.equals(PLAYER_URL)) {
 			try {
-				return new URL(PLAYER_URL.replace("PLATAFORM", plataform).concat(extras.length()==0 ? "" : extras));
+				return new URL(PLAYER_URL.replace("PLATAFORM", plataform).concat(extras.length()==0 ? "" : filter+extras));
 			} catch (MalformedURLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
