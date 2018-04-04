@@ -31,11 +31,11 @@ public class PubgWrapper {
 	 * @return List<Player>
 	 * @throws IOException
 	 */
-	public List<Player> getPlayers(String filter) throws IOException{
-		URL url = this.getFormatedURL(PLAYER_URL, filter);
+	public List<Player> getPlayers(List<String> filter) throws IOException{
+		URL url = this.getFormatedURL(PLAYER_URL, mountPlayerFilter(filter));
 		this.openConnection(url);
-		//Type listType = new TypeToken<ArrayList<Player>>(){}.getType();
-		return new Gson().fromJson(this.pubgConnector.getResult(this.connection).get("data"), new TypeToken<ArrayList<Player>>(){}.getType());
+		Type listType = new TypeToken<ArrayList<Player>>(){}.getType();
+		return new Gson().fromJson(this.pubgConnector.getResult(this.connection).get("data"), listType);
 	}
 
 	/**
@@ -51,6 +51,14 @@ public class PubgWrapper {
 		this.connection.setRequestProperty("Authorization", this.api_key);
 		this.connection.setRequestProperty("Accept", "application/vnd.api+json");
 		System.out.println("Connected!");
+	}
+	
+	public String mountPlayerFilter(List<String> players) {
+		String filter = "";
+		for(String name : players) {
+			filter = filter.concat(name+"%2C");
+		}
+		return filter.replace("%2C$", "");
 	}
 
 	/**
