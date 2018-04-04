@@ -5,7 +5,6 @@
 	<groupId>Wrapper4Pubg</groupId>
 	<artifactId>Wrapper4Pubg</artifactId>
 	<version>0.0.2-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>

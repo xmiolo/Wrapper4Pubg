@@ -31,7 +31,7 @@ public enum PlataformEnum {
         this.plataform = plataform;
     }
 
-    public String getPlataform() {
+    public String getDescription() {
         return this.plataform;
     }
 }

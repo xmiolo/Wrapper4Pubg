@@ -22,10 +22,10 @@ import com.google.gson.reflect.TypeToken;
 import br.pubg.PlataformEnum;
 import br.pubg.model.Player;
 
-public class PubgConnector {
-	private URL url;
-	private HttpURLConnection connection;
-	private String endPoint;
+class PubgConnector {
+	//private URL url;
+	//private HttpURLConnection connection;
+	//private String endPoint;
 	
 	/**
 	 * Connect to endPoint without filter
@@ -33,7 +33,7 @@ public class PubgConnector {
 	 * @param endPoint
 	 * @param key
 	 * @throws IOException 
-	 */
+	 *//*
 	protected PubgConnector(PlataformEnum plataform, String endPoint, String key) throws IOException {
 		this.url = new URL("https://api.playbattlegrounds.com/shards/".concat(plataform.getPlataform()).concat(endPoint));
 		this.endPoint = endPoint;
@@ -44,7 +44,7 @@ public class PubgConnector {
 		this.connection.setRequestProperty("Accept", "application/vnd.api+json");
 	}
 	
-	/**
+	*//**
 	 * Connect to endPoint with filter
 	 * @param plataform
 	 * @param endPoint
@@ -53,7 +53,7 @@ public class PubgConnector {
 	 * 
 	 * Filter Example: ?filter[playerNames]=filter%5BplayerNames%5D%3DplayerId-1,playerId-2,…
 	 * @throws IOException 
-	 */
+	 *//*
 	protected PubgConnector(PlataformEnum plataform, String endPoint, String key, String filter) throws IOException {
 		this.url = new URL("https://api.playbattlegrounds.com/shards/".concat(plataform.getPlataform()).concat(endPoint).concat(filter));
 		System.out.println("Connecting... ");
@@ -61,23 +61,12 @@ public class PubgConnector {
 		this.connection.setRequestMethod("GET");
 		this.connection.setRequestProperty("Authorization", key);
 		this.connection.setRequestProperty("Accept", "application/vnd.api+json");
-	}
+	}*/
 	
-	protected <T> T getResult() throws JsonIOException, JsonSyntaxException, UnsupportedEncodingException, IOException {
+	protected JsonObject getResult(HttpURLConnection connection) throws JsonIOException, JsonSyntaxException, UnsupportedEncodingException, IOException {
 		Gson gson = new Gson();
-		
 		JsonParser jsonParser = new JsonParser();
-		JsonObject jsonObject = (JsonObject)jsonParser.parse(new InputStreamReader(connection.getInputStream(), "UTF-8"));
-		
-		if(this.endPoint.equals("players")) {
-			List<Player> player = new ArrayList<Player>(0);
-			Type listType = new TypeToken<ArrayList<Player>>(){}.getType();
-			return new Gson().fromJson(jsonObject.get("data"), listType);
-		} else if (this.endPoint.equals("matches")) {
-			//TODO
-		}
-		//TODO handle exception
-		return null;
+		return (JsonObject)jsonParser.parse(new InputStreamReader(connection.getInputStream(), "UTF-8"));
 	}
 	
 	
