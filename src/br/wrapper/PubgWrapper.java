@@ -37,6 +37,17 @@ public class PubgWrapper {
 		Type listType = new TypeToken<ArrayList<Player>>(){}.getType();
 		return new Gson().fromJson(this.pubgConnector.getResult(this.connection).get("data"), listType);
 	}
+	
+	/**
+	 * Get Player by Id 
+	 * @return Player
+	 * @throws IOException
+	 */
+	public Player getPlayer(String id) throws IOException{
+		URL url = this.getFormatedURL(PLAYER_URL+id, "");
+		this.openConnection(url);
+		return new Gson().fromJson(this.pubgConnector.getResult(this.connection).get("data"), Player.class);
+	}
 
 	/**
 	 * Method to open connection with the API
